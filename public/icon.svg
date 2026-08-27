@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" fill="none" role="img" aria-labelledby="title description">
+  <title id="title">世界トイレ人口</title>
+  <desc id="description">深緑の角丸背景に、清潔な白いトイレットペーパー。</desc>
+  <defs>
+    <linearGradient id="background" x1="73" y1="22" x2="414" y2="503" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#23876b"/>
+      <stop offset="1" stop-color="#0d5847"/>
+    </linearGradient>
+    <linearGradient id="body" x1="142" y1="201" x2="344" y2="303" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#e2f0e9"/>
+      <stop offset=".48" stop-color="#f7fcf9"/>
+      <stop offset="1" stop-color="#c1ddce"/>
+    </linearGradient>
+    <linearGradient id="paper" x1="242" y1="244" x2="354" y2="366" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#fff"/>
+      <stop offset="1" stop-color="#eaf5ef"/>
+    </linearGradient>
+    <linearGradient id="core" x1="244" y1="161" x2="244" y2="204" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#15553f"/>
+      <stop offset="1" stop-color="#70a58b"/>
+    </linearGradient>
+    <filter id="shadow" x="83" y="95" width="345" height="346" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="16" stdDeviation="15" flood-color="#043729" flood-opacity=".22"/>
+    </filter>
+  </defs>
+  <rect data-background="true" width="512" height="512" rx="112" fill="url(#background)"/>
+  <rect data-border="true" x="13" y="13" width="486" height="486" rx="100" stroke="#fff" stroke-opacity=".12" stroke-width="2"/>
+  <g filter="url(#shadow)">
+    <path d="M143 189C143 158 188 134 243 134C298 134 343 158 343 189V280C343 312 298 336 243 336C188 336 143 312 143 280V189Z" fill="url(#body)"/>
+    <path d="M244 244C290 244 327 228 343 206L357 347C332 371 292 380 251 367L244 244Z" fill="url(#paper)"/>
+    <path d="M343 207L357 347C351 352 344 357 336 361" stroke="#bdd8c9" stroke-width="2" stroke-linecap="round"/>
+    <ellipse cx="243" cy="189" rx="100" ry="55" fill="#fff"/>
+    <ellipse cx="243" cy="189" rx="87" ry="45" stroke="#edf5f0" stroke-width="2"/>
+    <ellipse cx="243" cy="188" rx="33" ry="19" fill="url(#core)"/>
+    <path d="M211 188C215 179 228 173 243 173C258 173 271 179 275 188" stroke="#c4ddcf" stroke-width="5" stroke-linecap="round"/>
+    <path d="M250 314C284 323 320 316 351 296" stroke="#aacbbb" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="5 8"/>
+  </g>
+</svg>

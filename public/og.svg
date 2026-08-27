@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" fill="none" role="img" aria-labelledby="title description">
+  <title id="title">世界トイレ人口 — 世界は、ちょっと休憩中。</title>
+  <desc id="description">このアプリで「トイレ中」の人数を、リアルタイムに。名前や所在地を示さない、トイレットペーパーと抽象的な地球のイラスト。</desc>
+  <defs>
+    <radialGradient id="wash" cx="0" cy="0" r="1" gradientTransform="translate(987 307) rotate(90) scale(335 354)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#dceee3"/>
+      <stop offset="1" stop-color="#f5f7f4" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="roll-body" x1="143" y1="206" x2="343" y2="297" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#d3e8dd"/>
+      <stop offset=".52" stop-color="#f6fcf8"/>
+      <stop offset="1" stop-color="#b1d5c2"/>
+    </linearGradient>
+    <linearGradient id="roll-paper" x1="244" y1="244" x2="357" y2="367" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#fff"/>
+      <stop offset="1" stop-color="#eaf5ed"/>
+    </linearGradient>
+    <linearGradient id="roll-core" x1="243" y1="169" x2="243" y2="207" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#386c53"/>
+      <stop offset="1" stop-color="#90b59e"/>
+    </linearGradient>
+    <filter id="roll-shadow" x="98" y="103" width="300" height="320" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="13" stdDeviation="13" flood-color="#254e37" flood-opacity=".14"/>
+    </filter>
+    <clipPath id="globe-clip"><circle cx="935" cy="297" r="193"/></clipPath>
+    <symbol id="roll" viewBox="112 108 285 304">
+      <g filter="url(#roll-shadow)">
+        <path d="M143 189C143 158 188 134 243 134C298 134 343 158 343 189V280C343 312 298 336 243 336C188 336 143 312 143 280V189Z" fill="url(#roll-body)"/>
+        <path d="M244 244C290 244 327 228 343 206L357 347C332 371 292 380 251 367L244 244Z" fill="url(#roll-paper)"/>
+        <path d="M343 207L357 347C351 352 344 357 336 361" stroke="#b7d5c3" stroke-width="2" stroke-linecap="round"/>
+        <ellipse cx="243" cy="189" rx="100" ry="55" fill="#fff"/>
+        <ellipse cx="243" cy="189" rx="87" ry="45" stroke="#e6f2e9" stroke-width="2"/>
+        <ellipse cx="243" cy="188" rx="33" ry="19" fill="url(#roll-core)"/>
+        <path d="M211 188C215 179 228 173 243 173C258 173 271 179 275 188" stroke="#c4decc" stroke-width="5" stroke-linecap="round"/>
+        <path d="M250 314C284 323 320 316 351 296" stroke="#b2cebd" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="5 8"/>
+      </g>
+    </symbol>
+  </defs>
+  <rect width="1200" height="630" fill="#f5f7f4"/>
+  <rect x="672" width="528" height="630" fill="url(#wash)"/>
+  <rect x="64" y="51" width="44" height="44" rx="13" fill="#16735a"/>
+  <path d="M76 68C76 64 81 62 86 62C91 62 96 64 96 68V78C96 82 91 84 86 84C81 84 76 82 76 78V68Z" fill="#e3f0e8"/>
+  <path d="M87 73C91 73 94 72 96 70L98 86C95 88 91 89 87 87V73Z" fill="#fff"/>
+  <ellipse cx="86" cy="68" rx="10" ry="5.5" fill="#fff"/>
+  <ellipse cx="86" cy="68" rx="3.3" ry="1.9" fill="#16735a"/>
+  <g font-family="'Yu Gothic', 'Hiragino Sans', 'Meiryo', 'Noto Sans CJK JP', 'Noto Sans JP', sans-serif">
+    <text x="125" y="79" fill="#315c4c" font-family="Arial, sans-serif" font-size="13" font-weight="600" letter-spacing="2.7">TOILET POPULATION</text>
+    <text x="62" y="216" fill="#173e32" font-size="59" font-weight="700" letter-spacing="-2">世界は、</text>
+    <text x="62" y="296" fill="#173e32" font-size="59" font-weight="700" letter-spacing="-2">ちょっと休憩中。</text>
+    <text x="65" y="368" fill="#16735a" font-size="27" font-weight="700" letter-spacing=".8">世界トイレ人口</text>
+    <text x="65" y="411" fill="#50665b" font-size="19" font-weight="500">このアプリで「トイレ中」の人数を、リアルタイムに。</text>
+    <path d="M68 530V526C68 523 70 521 73 521C76 521 78 523 78 526V530M66 530H80V541H66V530Z" stroke="#698777" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="94" y="536" fill="#536d5e" font-size="15" font-weight="500">位置情報も、名前も、メールアドレスも、いりません。</text>
+    <text x="65" y="575" fill="#718276" font-size="12.5">世界の人口統計ではなく、アプリ利用者の自己申告です。</text>
+  </g>
+  <g stroke="#87bda2" stroke-width="1.2" opacity=".45">
+    <circle cx="935" cy="297" r="193"/>
+    <g clip-path="url(#globe-clip)" transform="rotate(-17 935 297)">
+      <ellipse cx="935" cy="297" rx="109" ry="193"/>
+      <ellipse cx="935" cy="297" rx="43" ry="193"/>
+      <ellipse cx="935" cy="297" rx="193" ry="63"/>
+      <ellipse cx="935" cy="203" rx="170" ry="37"/>
+      <ellipse cx="935" cy="391" rx="170" ry="37"/>
+    </g>
+  </g>
+  <ellipse cx="935" cy="297" rx="250" ry="102" transform="rotate(-31 935 297)" stroke="#72ad8b" stroke-width="1.2" stroke-opacity=".4"/>
+  <circle cx="725" cy="380" r="4" fill="#539973"/>
+  <circle cx="1107" cy="125" r="3" fill="#8eb9a0"/>
+  <circle cx="1052" cy="449" r="3" fill="#8eb9a0"/>
+  <use href="#roll" x="838" y="208" width="206" height="220" transform="rotate(-9 941 318)"/>
+  <use href="#roll" x="734" y="382" width="111" height="118" transform="rotate(14 789 441)"/>
+  <use href="#roll" x="1042" y="93" width="104" height="111" transform="rotate(17 1094 148)"/>
+  <text x="834" y="575" fill="#718276" font-family="Arial, sans-serif" font-size="10" letter-spacing="1.5">A SMALL BREAK. A SHARED MOMENT.</text>
+</svg>

@@ -1,0 +1,56 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function owns(uid) {
+      return signedIn() && request.auth.uid == uid;
+    }
+
+    function validFields() {
+      return request.resource.data.keys().hasAll(['startedAt', 'expiresAt'])
+        && request.resource.data.keys().hasOnly(['startedAt', 'expiresAt'])
+        && request.resource.data.startedAt is timestamp
+        && request.resource.data.expiresAt is timestamp;
+    }
+
+    // A zero-duration reservation is not an active session and is never counted.
+    function serverReservation() {
+      return request.resource.data.startedAt == request.time
+        && request.resource.data.expiresAt == request.time;
+    }
+
+    function armReservation() {
+      return resource.data.startedAt == resource.data.expiresAt
+        && request.resource.data.startedAt == resource.data.startedAt
+        && request.resource.data.expiresAt == resource.data.startedAt + duration.value(10, 'm')
+        && request.resource.data.expiresAt > request.time;
+    }
+
+    match /activeSessions/{uid} {
+      // Everyone is anonymously authenticated. These two timestamps are public app
+      // status data; an unrestricted timestamp-only list is deliberately permitted.
+      // Rules are NOT filters: the app applies expiresAt > current cutoff in its
+      // queries and removes expiries locally. A request.time-dependent list rule
+      // would reject legitimate moving-clock listeners. See README for tradeoffs.
+      allow list: if signedIn();
+      allow get: if owns(uid) || (signedIn() && resource.data.expiresAt > request.time);
+
+      allow create: if owns(uid) && validFields() && serverReservation();
+      // Identical retries may pass after another tab arms the same reservation.
+      // This cannot change either timestamp or extend an active visit.
+      allow update: if owns(uid) && validFields() && (
+        request.resource.data == resource.data
+        || armReservation()
+        || (resource.data.expiresAt <= request.time && serverReservation())
+      );
+      allow delete: if owns(uid);
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
