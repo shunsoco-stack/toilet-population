@@ -26,7 +26,7 @@ Firebaseが未設定のデモモードではFirebaseへセッション情報を�
 
 ## アクセス解析と通信サービス
 
-Vercel Web Analyticsで利用状況を把握し、開始・終了・共有のカスタムイベントを送信します。アプリのイベントに匿名UID、メールアドレス、氏名、GPS情報は含めません。利用するプランやAnalytics設定によってはカスタムイベントを管理画面で確認できません。
+Vercel Web Analyticsでページの閲覧状況を把握します。開始・終了・共有のカスタムイベント送信処理も実装していますが、現在のHobbyプランではカスタムイベントは収集されず、利用には対応するPro／Enterpriseプランが必要です。アプリのイベントに匿名UID、メールアドレス、氏名、GPS情報は含めません。Do Not TrackまたはGlobal Privacy Controlが有効なブラウザーでは、アプリからの解析イベント送信を抑止します。
 
 VercelやFirebaseはサービス提供のため、通信時のIPアドレス、ブラウザー情報などのメタデータを処理する場合があります。Vercel Analyticsには接続情報に基づく大まかな地域情報が含まれる場合があり、「位置情報APIの許可を求めない」ことと「サービス提供者が接続情報を一切処理しない」ことは異なります。詳しくは[Vercel Analyticsのプライバシー説明](https://vercel.com/docs/analytics/privacy-policy)と[Firebaseのプライバシーとセキュリティ](https://firebase.google.com/support/privacy)をご確認ください。
 

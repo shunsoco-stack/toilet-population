@@ -9,10 +9,12 @@
 ## 公開情報
 
 <!-- PUBLISH_STATUS_START -->
-- 公開アプリ: 公開・動作確認後に追記
-- GitHub: リポジトリ公開後に追記
+- 公開アプリ: [世界トイレ人口（デモモード）](https://toilet-population.vercel.app) — Vercel本番公開済み（READY）。
+- GitHub: [shunsoco-stack/toilet-population](https://github.com/shunsoco-stack/toilet-population) — 独立した公開リポジトリ。
 - Firebase: 未設定・デモモード。専用プロジェクト `toilet-population-kj` の新規作成を試みましたが、Google Cloudのプロジェクト作成数上限により作成できませんでした。既存の他アプリのプロジェクトや課金設定は変更していません。
-- スクリーンショット: 公開アプリからの取得後に掲載内容を確認。
+- 公開環境: Hobby。無料Web Analyticsは有効化・ページビュー受信確認済み。カスタムイベントの収集にはPro／Enterpriseが必要です。
+- デプロイ方法: Vercel CLI。GitHub連携による自動再デプロイは未接続です。
+- スクリーンショット: 2026-08-27に公開デモから撮影した5画面を下部へ掲載。
 <!-- PUBLISH_STATUS_END -->
 
 公開用の紹介文は[docs/publish-copy.md](docs/publish-copy.md)、データの扱いは[docs/privacy.md](docs/privacy.md)にまとめています。Tsukuttaへの掲載は未実施です。
@@ -27,7 +29,7 @@
 - モバイルファースト、ライト／ダークモード、キーボード操作・読み上げ・動きを減らす設定への配慮。
 - 端末の共有機能とクリップボードによる共有。
 - PWA用manifest・アイコン・favicon・OG画像。
-- Vercel Analyticsへの開始・終了・共有イベント送信。
+- Vercel Analyticsへの開始・終了・共有イベント送信処理（収集には対応プランが必要）。
 
 氏名・メールアドレスの登録は不要です。ブラウザーの位置情報APIを使わず、地図を思わせる装飾も実際の所在地を示しません。
 
@@ -179,13 +181,32 @@ PWAはFirebaseの接続を不要にする機能ではありません。オフラ
 
 ## Analytics
 
-開始・終了・共有のタイミングでVercel Analyticsのカスタムイベントを送信します。Firebase UID、氏名、メールアドレス、GPS情報はイベントに含めません。
+開始・終了・共有のタイミングでVercel Analyticsのカスタムイベントを送信するコードを実装しています。Firebase UID、氏名、メールアドレス、GPS情報、個別の利用時間や本日の記録はイベントに含めません。Do Not Track／Global Privacy Controlを尊重し、解析URLからクエリとハッシュも除去します。
 
-Vercelのプロジェクト画面でWeb Analyticsを有効にしてください。**カスタムイベントの閲覧には対応するPro／Enterpriseプランが必要**と案内されています。Hobbyで公開する場合、送信コードがあってもイベントダッシュボードの利用を保証できません。受信確認前に「計測データを確認済み」とは扱わないでください。[Vercelのカスタムイベント](https://vercel.com/docs/analytics/custom-events)
+現在のVercelプロジェクトでは無料のWeb Analyticsを有効化し、ページビューの受信まで確認済みです。公開AnalyticsスクリプトのHTTP 200と、Vercel側の有効化日時・`hasData: true`を確認しています。
+
+ただし、**Hobbyプランではカスタムイベントを収集できません。収集にはPro／Enterpriseが必要**です。これは管理画面の表示だけの制限ではありません。開始・終了・共有は「送信処理実装済み・本番収集は未有効」であり、ページビューの受信確認をカスタムイベントの受信実績とは扱いません。有料プランへの変更は行っていません。[Vercelのカスタムイベント](https://vercel.com/docs/analytics/custom-events)
 
 Vercel/Firebaseなどの通信基盤はIPアドレスや端末情報を処理する場合があります。位置情報APIは利用しませんが、Vercel Analyticsには接続情報から推定する大まかな地域が含まれる場合があります。詳しくは[プライバシー説明](docs/privacy.md)を参照してください。
 
 ## 品質確認とSecret Scan
+
+### 公開時の検証結果（2026-08-27）
+
+| 検証 | ローカルでの結果 |
+| --- | --- |
+| lint / typecheck / production build | すべて成功 |
+| 単体テスト | 144件成功（PWA 51・状態管理40・Firebaseクライアント22・セッション29・表示2） |
+| Firestore Security Rules | エミュレーターで27件成功 |
+| Secret Scan | 作業ファイル48件・Git index内48件の検査成功 |
+| Secret Scan自己テスト | 11件成功 |
+| 本番向け依存関係の脆弱性監査 | 検出0件 |
+
+上表はローカルで確認した結果です。さらに、初回公開コミット `0db8d4e` の[GitHub Actions実行 33053287876](https://github.com/shunsoco-stack/toilet-population/actions/runs/33053287876)は完了・成功し、品質確認とFirestore Rulesエミュレーター（27件）の両ジョブが通過しました。このCI結果は当該コミットに対するものです。後続コミットの結果は[Actions一覧](https://github.com/shunsoco-stack/toilet-population/actions)で確認してください。
+
+公開版の主要アセットとAnalyticsスクリプトはHTTP 200を確認済みです。公開ブラウザーでの確認とスクリーンショットはデモモードで実施し、本番Firebaseの同期確認とは区別しています。
+
+### 再実行
 
 ```bash
 npm run lint
@@ -221,6 +242,10 @@ node scripts/secret-scan.mjs --self-test
 
 ## Vercelへ公開する
 
+現在の公開版は、この独立リポジトリをVercel CLIから本番デプロイしています。GitHubとVercelの接続処理は未完了で、GitHub Appのアクセス権限などの確認が必要です。**GitHubへpushするだけでは自動で再公開されません。** 更新時は対象プロジェクトを確認したうえで `vercel deploy --prod` を実行するか、運営者がGitHub Appへのアクセスを許可してVercel連携を設定してください。
+
+新しい環境で公開する手順:
+
 1. この `toilet-population` ディレクトリだけを独立したGitHubリポジトリとして公開します。親の別アプリを含めないでください。
 2. Vercelで当該GitHubリポジトリをImportします。Framework PresetはNext.js、Node.jsは24、Root Directoryはリポジトリ直下です。
 3. `NEXT_PUBLIC_APP_URL` に実際の公開URLを設定します。Firebaseを利用する場合のみ上記のFirebase公開設定をProduction／必要なPreviewへ登録します。
@@ -229,31 +254,41 @@ node scripts/secret-scan.mjs --self-test
 6. Firebaseのライブ同期を有効にする場合はRules・TTL・匿名認証・ドメイン設定を確認し、別ブラウザー同士で同期テストを行います。
 7. 下記5枚を実際の公開アプリから撮影し、READMEの公開情報と紹介文のURLを更新します。
 
-CLIで公開する場合もこのディレクトリでVercelへリンクしてから実行します。`vercel --prod` は本番公開の操作です。既存の別プロジェクトへ誤ってリンクしないよう、対象名を確認してください。CI自体にはVercel/Firebaseの管理者トークンを保存しません。
+CLIで公開する場合もこのディレクトリでVercelへリンクしてから実行します。`vercel deploy --prod` は本番公開の操作です。既存の別プロジェクトへ誤ってリンクしないよう、対象名を確認してください。CI自体にはVercel/Firebaseの管理者トークンを保存しません。
 
 ## スクリーンショット
 
-以下は公開アプリから取得する5つの画面です。公開環境がデモの場合、画像内の人数もサンプルであり、実際の複数利用者の参加実績ではありません。
+撮影元は[実際のVercel公開アプリ](https://toilet-population.vercel.app)、撮影日は2026-08-27です。以下の5枚は公開版をブラウザーで操作して取得した画面です。公開環境はFirebase未設定の**デモモード**のため、人数はサンプルであり、実際の複数利用者の参加実績や本番Firebaseの同期を示すものではありません。
 
 ### 1. 初期画面
 
 ![世界トイレ人口の初期画面。デモ環境ではサンプル人数であることを明示](public/screenshots/01-initial.png)
 
+ライト・デスクトップ。未参加の初期状態でサンプル12人を表示。
+
 ### 2. トイレ中状態
 
 ![トイレ中の残り時間と終了ボタン](public/screenshots/02-active.png)
 
-### 3. 人数表示
+ライト・モバイル。サンプル12人＋自分1人で13人、残り時間は09:27。
+
+### 3. リアルタイム人数表示のデモ
 
 ![大きな人数と人数に応じて増えるトイレットペーパー。デモでは人数操作によるサンプル表示](public/screenshots/03-population.png)
+
+ダーク・デスクトップ。手動のデモ人数操作でサンプル16人＋自分1人の17人を表示。
 
 ### 4. 終了画面
 
 ![トイレ終了後の利用時間と完了メッセージ](public/screenshots/04-completed.png)
 
+ライト・デスクトップ。1分50秒の利用を終了し、サンプル16人へ戻った状態。
+
 ### 5. 本日の記録
 
 ![ブラウザー内に保存した本日の回数と合計時間](public/screenshots/05-records.png)
+
+本日の記録は1回、合計1分50秒。デモでの自分の操作記録をブラウザー内に保存。
 
 ## 運用上の制限
 
@@ -261,4 +296,5 @@ CLIで公開する場合もこのディレクトリでVercelへリンクして�
 - 人数同期は有効セッションの読取を行う小規模構成です。利用者が増えるとFirestoreの読取・接続・通信コストが増えるため、公開後は使用量・予算通知を確認してください。大規模運用には集約方式やApp Checkなどの追加設計が必要です。
 - デモのスクリーンショット、単体テスト、Rulesエミュレーターの成功は本番Firebase接続の証明ではありません。
 - 本日の記録は端末内だけに保存され、バックアップ・端末間同期はありません。
-- Vercel Analyticsのイベント可視化はプランと設定に依存します。
+- 現在のHobbyプランではVercel Analyticsのカスタムイベントを収集できません。開始・終了・共有の送信実装を収集済みの実績として扱わないでください。
+- GitHub連携によるVercel自動再デプロイは未接続です。現在はCLIでの手動デプロイです。

@@ -5,8 +5,8 @@
 - アプリ名: 世界トイレ人口
 - リポジトリ名: `toilet-population`
 - URL SLUG: `toilet-population`
-- 公開アプリ URL: 公開・動作確認後に追記
-- GitHub URL: リポジトリ公開後に追記
+- 公開アプリ URL: [世界トイレ人口（デモ）](https://toilet-population.vercel.app)
+- GitHub URL: [shunsoco-stack/toilet-population](https://github.com/shunsoco-stack/toilet-population)
 - Tsukutta掲載状況: 未掲載
 - Firebase設定状況: デモモード。専用Firebaseプロジェクトの新規作成は、Google Cloudのプロジェクト作成数上限により未完了。
 
@@ -14,11 +14,11 @@
 
 ### ひとりの時間を、ちょっとだけ世界とつなぐ。
 
-「今トイレです」を押すと、このアプリで現在トイレ中に設定している人の輪に参加できる、ささやかなリアルタイムWebアプリです。表示する人数は世界の実際のトイレ利用者を調査・推計した統計ではありません。
+「今トイレです」を押すと、このアプリで現在トイレ中に設定している人の輪に参加できる、小さなWebアプリです。Firebase設定時にリアルタイム同期する構成を備えています。現在の公開版はサンプル人数を使うデモで、他の利用者とは同期しません。世界の実際のトイレ利用者を調査・推計した統計ではありません。
 
 くだらないアイデアを、清潔感のあるミニマルなUIで丁寧に形にしました。大きな人数表示、人数に応じて増えるトイレットペーパー、ダークモード、モバイルファーストのレイアウトを用意。開始から10分で自動解除し、再読み込みや離脱後の状態復元にも対応しています。本日の回数と合計時間は端末内に保存し、氏名・メールアドレスの登録や位置情報の許可は求めません。
 
-Next.js・TypeScript・Tailwind CSSを採用し、Firebase Anonymous AuthenticationとCloud Firestoreで匿名のセッションを同期する構成を実装。UIDごとの単一セッション、Security Rules、期限切れの表示除外、TTLの設定手順まで整備しました。Firebase未設定時はデモであることを明示します。現在の公開版はデモ構成です。PWA、共有、Vercel Analyticsの開始・終了・共有イベント送信も実装しています。
+Next.js・TypeScript・Tailwind CSSを採用し、Firebase Anonymous AuthenticationとCloud Firestoreで匿名のセッションを同期する構成を実装。UIDごとの単一セッション、Security Rules、期限切れの表示除外、TTLの設定手順まで整備しました。PWA、共有、開始・終了・共有のAnalytics送信処理も実装済みです。Firebaseの本番接続はプロジェクト作成数上限のため未設定で、現在のHobbyプランではカスタムイベントの収集はできません。Firebase設定の有無をUIに明示し、公開環境の制約をREADMEにまとめています。
 
 ## Tsukutta掲載文
 
@@ -34,9 +34,11 @@ Next.js・TypeScript・Tailwind CSSを採用し、Firebase Anonymous Authenticat
 
 10分で自動解除、残り時間の表示、本日の回数・合計時間の記録、状態復元、ダークモード、PWAに対応。氏名・メールアドレスの登録や位置情報の許可は不要です。
 
-技術構成はNext.js / TypeScript / Tailwind CSS / Firebase。Firebase未設定の公開環境では「デモモード」と表示し、他の利用者と共有された人数とは区別しています。
+技術構成はNext.js / TypeScript / Tailwind CSS / Firebase。現在の公開版は「デモモード」です。サンプル人数で操作を試せますが、他の利用者とは同期しません。
 
 ちょっとした休憩のおともに、どうぞ。
+
+[世界トイレ人口を試す](https://toilet-population.vercel.app)
 
 ## タグ（5個）
 
@@ -50,13 +52,15 @@ Next.js・TypeScript・Tailwind CSSを採用し、Firebase Anonymous Authenticat
 
 10分で自動解除、再読み込み後の復元、端末内の本日の記録、ダークモード、PWAに対応。Next.js × Firebaseで実装し、匿名認証・Security Rules・アクセシビリティも丁寧に整えました。
 
-Firebase未設定の環境はデモと明記しています。よかったら、ちょっとした休憩に触ってみてください。
+現在の公開版はデモです。サンプル人数を使い、他の利用者とは同期しません。よかったら、ちょっとした休憩に触ってみてください。
 
-公開アプリ: 公開・動作確認後に追記
+公開アプリ: [世界トイレ人口](https://toilet-population.vercel.app)
 
 ## 掲載時の確認事項
 
-- 公開 URL を確認してから、上記の URL 欄を置き換える。
-- 公開版がデモの場合は、実際の複数利用者が同期していると紹介しない。
-- Vercel Analytics のカスタムイベント閲覧には、対応プランとAnalyticsの有効化が必要。送信コードの実装と、管理画面での受信確認を混同しない。
+- 公開URL・GitHubリポジトリは2026-08-27に確認。公開版はデモのため、実際の複数利用者が同期していると紹介しない。
+- Vercelの無料Web Analyticsは有効化・ページビュー受信確認済み。ただしHobbyではカスタムイベントを収集できず、Pro／Enterpriseが必要。ページビューの受信を、開始・終了・共有のカスタムイベント受信実績として扱わない。有料プランへの変更はしていない。
+- 初回公開コミット `0db8d4e` の[GitHub Actions](https://github.com/shunsoco-stack/toilet-population/actions/runs/33053287876)は品質確認・Firestore Rules検証の両ジョブが成功。後続コミットの成功は別途確認する。
+- スクリーンショット5枚は2026-08-27に実際の公開デモから取得。ライト／ダーク、デスクトップ／モバイル、開始・終了・記録を紹介し、本番Firebase同期の実績とは扱わない。
+- GitHub→Vercelの自動デプロイ連携は未接続。現在はCLIでの手動本番デプロイ。
 - Tsukuttaへの投稿はこのファイルの作成だけでは行われない。実際に投稿・確認するまで掲載状況は「未掲載」のままにする。
